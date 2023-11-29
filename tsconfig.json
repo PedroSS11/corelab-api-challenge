@@ -1,17 +1,42 @@
 {
-  "extends": "./node_modules/adonis-preset-ts/tsconfig",
-  "include": ["**/*"],
-  "exclude": ["node_modules", "build"],
   "compilerOptions": {
-    "outDir": "build",
-    "rootDir": "./",
+    "target": "es2019",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "lib": ["es2019"],
     "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "resolveJsonModule": true,
+    "alwaysStrict": true,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "paths": {
-      "App/*": ["./app/*"],
-      "Config/*": ["./config/*"],
-      "Contracts/*": ["./contracts/*"],
-      "Database/*": ["./database/*"]
+      "@src/*": ["./src/*"],
+      "@config/*": ["src/app/config/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@controllers/*": ["src/app/controllers/*"],
+      "@services/*": ["src/app/services/*"],
+      "@repositories/*": ["src/app/repositories/*"],
+      "@middlewares/*": ["src/app/middlewares/*"],
+      "@dto/*": ["src/app/dto/*"]
     },
-    "types": ["@adonisjs/core", "@adonisjs/repl", "@japa/preset-adonis/build/adonis-typings"]
-  }
+    "rootDirs": ["./src", "./test"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    "src/app/modules/Product/Router.ts",
+    "src/app/middlewares/UserValidator.ts"
+  ],
+  "exclude": ["./node_modules/*", "dist"]
 }

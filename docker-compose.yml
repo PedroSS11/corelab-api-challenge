@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    # ajustar credenciais do postgres conforme necessidade
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: md5
+      POSTGRES_USER: postgres
+      POSTGRES_DB: corelab
+      POSTGRES_PASSWORD: '123456789'
+    ports:
+      - '2345:5432'
+  app:
+    # para gerar uma nova imagem a partir do projeto atual descomentar BUILD e comentar IMAGE
+    # build: 
+     # context: .
+     # dockerfile: Dockerfile
+
+    # usando imagem atualizada e publicada no docker hub 
+    image: pedross11/corelab-api:latest
+    ports:
+      - '8080:8080'
+    environment:
+      # deve ser usado o nome do container criado para o postgres em DB_HOST
+      DB_HOST: postgres
+      DB_NAME: corelab
+      DB_USER: postgres
+      # deve ser usada a porta da nossa máquina na bind do service do postgres
+      DB_PORT: 5432
+    depends_on:
+      - postgres
